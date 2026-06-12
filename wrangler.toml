@@ -13,3 +13,6 @@ bucket_name = "image-extract-bucket"
 binding = "DB"
 database_name = "image-extract-db"
 database_id = "ca83d65b-bbb8-44b7-a3f4-c494bc4ae1c2"
+
+[vars]
+ADMIN_PASSWORD = ""  # Set via: wrangler secret put ADMIN_PASSWORD

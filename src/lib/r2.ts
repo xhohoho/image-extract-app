@@ -16,3 +16,7 @@ export async function getImageFromR2(env: Env, key: string) {
   if (!obj) return null;
   return obj;
 }
+
+export async function deleteImageFromR2(env: Env, key: string) {
+  await env.IMAGES_BUCKET.delete(key);
+}

@@ -12,25 +12,12 @@ export async function insertImageRecord(env: Env, record: ImageRecord) {
   await env.DB.prepare(
     "INSERT INTO images (id, r2_key, uploaded_at, extracted_data, status) VALUES (?, ?, ?, ?, ?)"
   )
-    .bind(
-      record.id,
-      record.r2_key,
-      record.uploaded_at,
-      record.extracted_data,
-      record.status
-    )
+    .bind(record.id, record.r2_key, record.uploaded_at, record.extracted_data, record.status)
     .run();
 }
 
-export async function updateImageRecord(
-  env: Env,
-  id: string,
-  extractedData: string,
-  status: string
-) {
-  await env.DB.prepare(
-    "UPDATE images SET extracted_data = ?, status = ? WHERE id = ?"
-  )
+export async function updateImageRecord(env: Env, id: string, extractedData: string, status: string) {
+  await env.DB.prepare("UPDATE images SET extracted_data = ?, status = ? WHERE id = ?")
     .bind(extractedData, status, id)
     .run();
 }
@@ -49,4 +36,12 @@ export async function listImageRecords(env: Env, limit = 50) {
     .bind(limit)
     .all<ImageRecord>();
   return result.results ?? [];
+}
+
+export async function deleteImageRecord(env: Env, id: string) {
+  await env.DB.prepare("DELETE FROM images WHERE id = ?").bind(id).run();
+}
+
+export async function deleteAllImageRecords(env: Env) {
+  await env.DB.prepare("DELETE FROM images").run();
 }

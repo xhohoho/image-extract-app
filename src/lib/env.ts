@@ -4,6 +4,7 @@ export interface Env {
   IMAGES_BUCKET: R2Bucket;
   DB: D1Database;
   GEMINI_API_KEY: string;
+  ADMIN_PASSWORD: string;
 }
 
 export function getEnv(): Env {
