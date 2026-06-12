@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useRef, useCallback } from "react";
+import { useState, useRef, useCallback, useEffect } from "react";
 
 interface UploadResponse {
   id?: string;
@@ -78,6 +78,21 @@ export default function Home() {
   const [expandedId, setExpandedId] = useState<string | null>(null);
   const [adminSuccess, setAdminSuccess] = useState("");
 
+  // Restore admin session from sessionStorage on mount
+  useEffect(() => {
+    const saved = sessionStorage.getItem("adminPassword");
+    if (saved) {
+      setAdminPassword(saved);
+      fetch("/api/admin/images", { headers: { "x-admin-password": saved } })
+        .then((r) => r.ok ? r.json() : Promise.reject())
+        .then((data: { records: ImageRecord[] }) => {
+          setAdminRecords(data.records ?? []);
+          setAdminAuthed(true);
+        })
+        .catch(() => sessionStorage.removeItem("adminPassword"));
+    }
+  }, []);
+
   function showAdminSuccess(msg: string) {
     setAdminSuccess(msg);
     setTimeout(() => setAdminSuccess(""), 3000);
@@ -152,6 +167,7 @@ export default function Home() {
         setAdminRecords(data.records ?? []);
         setAdminAuthed(true);
         setShowAdminModal(false);
+          sessionStorage.setItem("adminPassword", adminPassword);
       }
     } catch { setAdminAuthError("Connection error."); }
     finally { setAdminAuthLoading(false); }
@@ -169,6 +185,7 @@ export default function Home() {
     setAdminRecords([]);
     setExpandedId(null);
     setAdminError("");
+    sessionStorage.removeItem("adminPassword");
   }
 
   async function handleDelete(id: string) {
