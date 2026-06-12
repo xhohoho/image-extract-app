@@ -1,0 +1,17 @@
+name = "image-extract-app"
+compatibility_date = "2024-09-23"
+compatibility_flags = ["nodejs_compat"]
+pages_build_output_dir = ".vercel/output/static"
+
+[[r2_buckets]]
+binding = "IMAGES_BUCKET"
+bucket_name = "image-extract-bucket"
+
+[[d1_databases]]
+binding = "DB"
+database_name = "image-extract-db"
+database_id = "REPLACE_WITH_YOUR_D1_DATABASE_ID"
+
+# Set this with: wrangler pages secret put GEMINI_API_KEY
+# [vars]
+# GEMINI_API_KEY = "set-via-wrangler-secret-instead"
