@@ -1,4 +1,5 @@
-// Cloudflare bindings available via process.env in next-on-pages (runtime: edge)
+import { getCloudflareContext } from "@opennextjs/cloudflare";
+
 export interface Env {
   IMAGES_BUCKET: R2Bucket;
   DB: D1Database;
@@ -6,6 +7,5 @@ export interface Env {
 }
 
 export function getEnv(): Env {
-  // @ts-ignore - injected by @cloudflare/next-on-pages at runtime
-  return process.env as unknown as Env;
+  return getCloudflareContext().env as unknown as Env;
 }

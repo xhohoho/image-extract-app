@@ -3,8 +3,6 @@ import { getEnv } from "@/lib/env";
 import { uploadImageToR2 } from "@/lib/r2";
 import { insertImageRecord } from "@/lib/d1";
 
-export const runtime = "edge";
-
 export async function POST(req: NextRequest) {
   const env = getEnv();
 
