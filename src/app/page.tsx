@@ -130,13 +130,21 @@ export default function Home() {
             background: dark ? "#1e1e3a" : "#ede9fe", color: t.accentText, borderRadius: 4,
           }}>AI</span>
         </div>
-        <button onClick={() => setDark(!dark)} style={{
-          background: t.toggleBg, border: `1px solid ${t.border}`,
-          borderRadius: 8, padding: "5px 10px", cursor: "pointer",
-          fontSize: "0.85rem", color: t.textMuted, transition: "all 0.2s",
-        }}>
-          {t.toggleIcon} {dark ? "Light" : "Dark"}
-        </button>
+        <div style={{ display: "flex", gap: "0.5rem", alignItems: "center" }}>
+          <a href="/admin" style={{
+            background: t.toggleBg, border: `1px solid ${t.border}`,
+            borderRadius: 8, padding: "5px 12px", cursor: "pointer",
+            fontSize: "0.82rem", color: t.textMuted, textDecoration: "none",
+            fontWeight: 500, transition: "all 0.2s",
+          }}>⚙️ Admin</a>
+          <button onClick={() => setDark(!dark)} style={{
+            background: t.toggleBg, border: `1px solid ${t.border}`,
+            borderRadius: 8, padding: "5px 10px", cursor: "pointer",
+            fontSize: "0.85rem", color: t.textMuted, transition: "all 0.2s",
+          }}>
+            {t.toggleIcon} {dark ? "Light" : "Dark"}
+          </button>
+        </div>
       </nav>
 
       <main style={{ maxWidth: 720, margin: "0 auto", padding: "2.5rem 1.5rem" }}>
